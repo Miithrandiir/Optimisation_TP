@@ -21,6 +21,8 @@ public:
     std::uniform_int_distribution<int> dist;
 
     Solution search(int cycle, Knapsack &knapsack) override;
+
+    Solution search(int cycle, Knapsack &knapsack, Solution &sol) override;
 };
 
 

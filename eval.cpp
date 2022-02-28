@@ -10,8 +10,9 @@
 #include "src/search/HillClimberBestImprovementSearcher.hpp"
 #include "src/search/HillClimberFirstImprovement.hpp"
 #include "src/search/RecuitSimuleSearcher.hpp"
+#include "src/search/IteratedLocalSearch.hpp"
 
-ISearch* get_algorithm(int algo, int seed);
+ISearch *get_algorithm(int algo, int seed);
 
 int main(int argc, char *argv[]) {
 
@@ -21,13 +22,15 @@ int main(int argc, char *argv[]) {
     //argv 4 => Nombre d'itération
     //argv 5 => Fichier à écrire
 
-    if(argc != 5) {
+    if (argc != 5) {
         std::cout << "usage: ./TP1_eval <Algo> <data_file> <nb Iterations> <writing file>" << std::endl;
         std::cout << "~ Algorithme ~" << std::endl;
         std::cout << "\t - 1: RandomSearch" << std::endl;
         std::cout << "\t - 2: RandomWalkerSearcher" << std::endl;
         std::cout << "\t - 3: HillClimberBestImprovement" << std::endl;
         std::cout << "\t - 4: HillClimberFirstImprovement" << std::endl;
+        std::cout << "\t - 5: Recuit simulé" << std::endl;
+        std::cout << "\t - 6: Iterated Local Search" << std::endl;
     }
 
     int algo = std::stoi(argv[1]);
@@ -42,9 +45,9 @@ int main(int argc, char *argv[]) {
 
     ofstream << "Iterations,  Max try, fitness" << std::endl;
 
-    std::vector<int> nb_cycles {100000, 1000000,10000000};
+    std::vector<int> nb_cycles{100000, 1000000, 10000000};
 
-    for(int cycle : nb_cycles) {
+    for (int cycle: nb_cycles) {
         for (int i = 0; i < nb_iteration; ++i) {
 
             ISearch *search = get_algorithm(algo, i);
@@ -62,8 +65,7 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-ISearch* get_algorithm(int algo, int seed)
-{
+ISearch *get_algorithm(int algo, int seed) {
     switch (algo) {
         case 1:
             return new RandomSearch(seed);
@@ -75,6 +77,8 @@ ISearch* get_algorithm(int algo, int seed)
             return new HillClimberFirstImprovement(seed);
         case 5:
             return new RecuitSimuleSearcher(seed);
+        case 6:
+            return new IteratedLocalSearch(seed);
     }
 
     return nullptr;

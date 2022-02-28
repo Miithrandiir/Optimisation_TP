@@ -12,6 +12,7 @@ class ISearch
 {
 public:
     virtual Solution search(int cycle, Knapsack& knapsack) = 0;
+    virtual Solution search(int cycle, Knapsack& knapsack, Solution& sol) {};
 };
 
 #endif //TP1_ISEARCH_HPP

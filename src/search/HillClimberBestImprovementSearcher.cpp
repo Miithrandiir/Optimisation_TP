@@ -12,6 +12,12 @@ Solution HillClimberBestImprovementSearcher::search(int cycle, Knapsack &knapsac
         solution.taken[i] = (dist(rng) == 1);
     }
     knapsack.eval(solution);
+
+    return search(cycle, knapsack, solution);
+
+}
+
+Solution HillClimberBestImprovementSearcher::search(int cycle, Knapsack &knapsack, Solution &solution) {
     int appel_f = 0;
 
     while(appel_f < cycle){
