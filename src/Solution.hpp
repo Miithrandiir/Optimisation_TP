@@ -14,10 +14,14 @@
 class Solution {
 public:
     std::vector<bool> taken;
+    double z;
+    double w;
     double fitness;
 
     Solution() {
         this->fitness = std::numeric_limits<double>::min();
+        z=0.0;
+        w=0.0;
     }
 
     Solution(std::vector<bool> solutions) {taken = solutions;}

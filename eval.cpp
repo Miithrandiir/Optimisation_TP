@@ -37,12 +37,12 @@ int main(int argc, char *argv[]) {
 
     Knapsack knapsack(data_file);
 
-    std::ofstream ofstream;
+    std::fstream ofstream;
     ofstream.open(write_file);
 
     ofstream << "Iterations,  Max try, fitness" << std::endl;
 
-    std::vector<int> nb_cycles {10,100,1000,10000,100000,1000000};
+    std::vector<int> nb_cycles {100000, 1000000,10000000};
 
     for(int cycle : nb_cycles) {
         for (int i = 0; i < nb_iteration; ++i) {

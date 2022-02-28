@@ -18,8 +18,8 @@ Solution RecuitSimuleSearcher::search(int cycle, Knapsack &knapsack) {
     while(cycle > 0) {
         double current_fitness = solution.fitness;
         int alea_indice = random_indice(rng);
+        knapsack.delta_eval(solution, alea_indice);
         solution.taken[alea_indice] = !solution.taken[alea_indice];
-        knapsack.eval(solution);
         cycle--;
 
 

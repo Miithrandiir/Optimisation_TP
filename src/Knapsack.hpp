@@ -21,6 +21,7 @@ public:
     /// \description Permet de calculer la fitness de la solution donnée
     /// \param solution
     void eval(Solution& solution);
+    void delta_eval(Solution& solution, int j);
 
     int get_weight(Solution& solution);
     int get_value(Solution& solution);

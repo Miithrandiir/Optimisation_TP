@@ -52,17 +52,19 @@ Knapsack::Knapsack(std::string filename) {
 }
 
 
+
+
 void Knapsack::eval(Solution &solution) {
 
-    int z = get_value(solution);
-    int w = get_weight(solution);
+    solution.z = get_value(solution);
+    solution.w = get_weight(solution);
 
-    if (w <= maxWeight) {
-        solution.fitness = z;
+    if (solution.w <= maxWeight) {
+        solution.fitness = solution.z;
         return;
     }
 
-    solution.fitness = z - beta * (w - maxWeight);
+    solution.fitness = solution.z - beta * (solution.w - maxWeight);
 }
 
 int Knapsack::get_weight(Solution &solution) {
@@ -85,5 +87,25 @@ int Knapsack::get_value(Solution &solution) {
         }
     }
     return somme;
+}
+
+void Knapsack::delta_eval(Solution &solution,int j) {
+
+    if(solution.taken[j] == 0) {
+        solution.z = solution.z + items[j].value;
+        solution.w = solution.z + items[j].weight;
+    } else {
+        solution.z = solution.z - items[j].value;
+        solution.w = solution.z - items[j].weight;
+    }
+
+    if (solution.w <= maxWeight) {
+        solution.fitness = solution.z;
+        return;
+    }
+
+    solution.fitness = solution.z - beta * (solution.w - maxWeight);
+
+
 }
 

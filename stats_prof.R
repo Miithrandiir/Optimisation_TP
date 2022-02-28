@@ -3,13 +3,13 @@
 # date 2015/10/12, V0
 
 # Bien mettre le chemin du rÃ©pertoire de travail (Session -> Set Working Directory -> To Source File Location)
-setwd("~/Development/ulco/M1/Optimisation_verel/TP1")
+setwd("~/Documents/M1/Optim_problem/verel_tp")
 
 ############################
 # recherche alÃ©atoire
 
 # lit les donnÃ©es des recherches alÃ©atoires
-df.rs <- read.table("./cmake-build-release/result.csv", header = TRUE, sep = ",")
+df.rs <- read.table("./cmake-build-release/result_recuit.csv", header = TRUE, sep = ",")
 
 # si besoin renommer les 2 colonnes :
 names(df.rs) <- c("id", "nbeval", "fitness")
@@ -17,38 +17,19 @@ names(df.rs) <- c("id", "nbeval", "fitness")
 # vÃ©rification du fichier: affiche les premiÃ¨res lignes
 head(df.rs)
 
+max(df.rs$fitness)
+
 # histogramme pour un nombre d'Ã©valuation 10000 : nota, la distribution n'est pas gaussienne
-hist(df.rs[df.rs$nbeval == 10000,]$fitness)
+hist(df.rs[df.rs$nbeval == 1e+07,]$fitness)
 
 # calcul de la moyenne
-mean(df.rs[df.rs$nbeval == 10000,]$fitness)
+mean(df.rs[df.rs$nbeval == 1e+07,]$fitness)
 
 # rÃ©sumÃ© des principales statistiques
-summary(df.rs[df.rs$nbeval == 10000,]$fitness)
+summary(df.rs[df.rs$nbeval == 1e+07,]$fitness)
 
 # nuage de points des fitness obtenues en fonction du nombre d'Ã©valuation
 plot(fitness ~ nbeval, data = df.rs)
-
-# chargement de la librairie doBy
-library(doBy)
-
-# calcul des moyennes de fitness en fonction du nombre d'Ã©valuation
-df.rs.mean <- summaryBy(fitness ~ nbeval, data = df.rs)
-
-# plot correspondant
-plot(fitness.mean ~ nbeval, data = df.rs.mean)
-
-# grosso modo, on a l'impression que les donnÃ©es suivent une loi logarithmique
-# d'ailleur, on peut tracer avec le log:
-plot(fitness.mean ~ log10(nbeval), data = df.rs.mean)
-
-# et mÃªme fitter un modÃ¨le linÃ©aire
-model <- lm(fitness.mean ~ log10(nbeval), data = df.rs.mean)
-
-# trace la droite de rÃ©gression
-abline(model)
-# donne le descriptif du modÃ¨le : noter un trÃ¨s bon coefficient R^2
-summary(model)
 
 ## Remarque : sans la librairie doBy 
 
